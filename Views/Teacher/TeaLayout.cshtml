@@ -1,0 +1,73 @@
+﻿@model GradebookOnlineApp.Models.TeacherModels.TeacherProfile
+@{
+    ViewBag.Title = "TeaLayout";
+}
+
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <LINK href="/Content/dynLayout.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="container-bg">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-default">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a asp-action="Index" asp-controller="Supervisor" class="navbar-brand" href="" style="font-family: 'Asap'; font-style: italic; color: #f1f2f6">
+                @*<img src="../images/Logos/dynamicsLogoMini.png" width="30" height="30" class="d-inline-block align-top" alt="">*@
+                Dziennik ocen
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Przedmioty", "Index", "Teacher", null, new { @class = "nav-link link-color" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Zajęcia", "TeaClasses", "Teacher", null, new { @class = "nav-link link-color" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Projekty", "TeaProjects", "Teacher", null, new { @class = "nav-link link-color" })
+                    </li>
+
+                </ul>
+            </div>
+            <form class="form-inline" style="font-family: 'Comfortaa', sans-serif; color: white">
+                Prowadzący - @Model.LoginModel.Teacher.imie_prowadzacy @Model.LoginModel.Teacher.drugie_imie_prowadzacy
+                <div class="btn-group dropdown">
+                    <img src="~/Content/user.jpg" width="40" height="40" style="margin-left: 5px;" class="d-inline-block align-top" alt="">
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        @Html.ActionLink("Wyloguj", "Logout", "Login", null, new { @type = "button", @class = "btn" })
+                        @*<button class="dropdown-item" type="button">Logout</button>*@
+                    </div>
+                </div>
+
+            </form>
+        </nav>
+
+        <div class="container">
+            @RenderBody()
+        </div>
+
+    </div>
+    <footer class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-3" style="font-family:'Comfortaa'">
+            © 2019 Wszelkie prawa zastrzeżone:
+            <a href="https://mdbootstrap.com/education/bootstrap/" style="font-family:'Comfortaa'; font-style: italic;"> gradebook.com</a>
+        </div>
+    </footer>
+</body>
+</html>

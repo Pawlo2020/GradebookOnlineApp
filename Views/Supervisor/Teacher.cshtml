@@ -1,0 +1,147 @@
+﻿@model GradebookOnlineApp.Models.SupervisorModels.SupervisorProfile
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Supervisor/SupLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="container" style="width: 100%;">
+        <div class="row-full">
+            <div class="card">
+                <div class="card-body">
+                    <div id="serviceName">
+                        <h4 style="font-family: 'Asap'; color: #5f27cd; margin: 0 auto;">Prowadzący</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="allProject">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="font-family: 'Comfortaa';">
+                        Wszyscy prowadzący
+                    </h5>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numer indeksu</th>
+                                <th scope="col">Imię</th>
+                                <th scope="col">Nazwisko</th>
+                                <th scope="col">PESEL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Teachers)
+                            {
+                                <tr id="@item.Teacher.id_prow">
+                                    <a href="@Url.Action("Teacher","Supervisor",new { id=item.Teacher.id_prow})">
+                                        <td>@item.Type.typ_prowadzacy</td>
+                                        <td>@item.Teacher.imie_prowadzacy</td>
+                                        <td>@item.Teacher.nazwisko_prowadzacy</td>
+                                        <td>@item.Teacher.pesel_prowadzacy</td>
+                                        <td>
+                                            @Html.ActionLink("Edytuj", "EditTeacher", new { id = item.Teacher.id_prow }, new { @class = "btn btn-secondary" })
+
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Usuń", "DeleteTeacher", new { id = item.Teacher.id_prow }, new { @class = "btn btn-warning" })
+                                        </td>
+                                    </a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <hr />
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #686de0; color: white;">Nowy prowadzący</button>
+
+                    <div class="modal fade bg-dark" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle" style="color: #5f27cd;">Dodaj prowadzącego</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    @using (Html.BeginForm("CreateTeacher", "Supervisor", FormMethod.Post))
+                                    {
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="PName">Hasło</label>
+                                                @Html.TextBoxFor(x => x.Teacher.haslo, new { @class = "form-control form-control-sm", @id = "PName" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.haslo)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="DStart">Imię</label>
+                                                @Html.TextBoxFor(x => x.Teacher.imie_prowadzacy, new { @class = "form-control form-control-sm", @id = "DStart" })
+                                                @Html.ValidationMessageFor(x => x.Student.imie_student)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Drugie imię</label>
+                                                @Html.TextBoxFor(x => x.Teacher.drugie_imie_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.drugie_imie_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Nazwisko</label>
+                                                @Html.TextBoxFor(x => x.Teacher.nazwisko_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.nazwisko_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Data urodzenia</label>
+                                                @Html.TextBoxFor(x => x.Teacher.data_urodzenia_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.data_urodzenia_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Miejsce urodzenia</label>
+                                                @Html.TextBoxFor(x => x.Teacher.miejsce_urodzenia_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.miejsce_urodzenia_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">PESEL</label>
+                                                @Html.TextBoxFor(x => x.Teacher.pesel_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.pesel_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">E-mail</label>
+                                                @Html.TextBoxFor(x => x.Teacher.email_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.email_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Telefon</label>
+                                                @Html.TextBoxFor(x => x.Teacher.telefon_prowadzacy, new { @class = "form-control form-control-sm", @id = "loginText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.telefon_prowadzacy)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="DOBMText">Typ prowadzącego</label>
+                                                @Html.DropDownListFor(x => x.Teacher.id_typ_prowadzacy, (IEnumerable<SelectListItem>)ViewBag.TeacherTypeList, "Grupa dziekańska", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                                                @Html.ValidationMessageFor(x => x.Teacher.id_typ_prowadzacy)
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                                            <button type="submit" formmethod="post" class="btn btn-primary" style="background-color: #686de0; color: white;">Dodaj prowadzącego</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+

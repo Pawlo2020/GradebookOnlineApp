@@ -1,0 +1,102 @@
+﻿html, body {
+    height: 100%;
+}
+
+.navbar-default {
+    background-color: #00b894;
+    border-color: #00b894;
+}
+
+.container-bg {
+    background-color: rgb(239, 231, 252);
+    background-size: cover;
+    min-height: 100%;
+    height: 100%;
+}
+
+nav .navbar-nav li a {
+    color: white !important;
+}
+
+
+
+
+#date_information {
+    color: #273c75;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+p {
+    font-family: Rajdhani;
+    line-height: 14px;
+    height: 75px;
+    margin: 0px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 150%;
+    align-items: center;
+    padding: 10px;
+    color: #5f27cd;
+}
+
+
+.btn-dynamics {
+    background-color: #686de0;
+    color: white;
+}
+
+.row-full {
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    height: 100px;
+    left: 50%;
+}
+
+.row-fullt {
+    width: 98vw;
+    position: inherit;
+    margin-left: -50vw;
+    height: 100px;
+    left: 52%;
+}
+
+
+footer {
+    padding: 0;
+    clear: both;
+    background-color: #5f27cd;
+    background-position: center;
+    color: white;
+}
+
+.recentProject {
+    width: 98vw;
+    position: relative;
+    margin-left: -50vw;
+    height: 100px;
+    left: 52%;
+}
+
+.allProject {
+    width: 98vw;
+    position: relative;
+    margin-left: -50vw;
+    height: 800px;
+    left: 52%;
+}
+
+#serviceName {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 10em;
+    padding: 2px;
+    border: 2px solid #5f27cd;
+    border-radius: 10px;
+}
+
+.taskHeader {
+    display: inline-block;
+    margin: 0px 10px 0px 0px;
+}

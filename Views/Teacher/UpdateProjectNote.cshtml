@@ -1,0 +1,99 @@
+﻿@model GradebookOnlineApp.Models.TeacherModels.TeacherProfile
+@{
+    ViewBag.Title = "UpdateProjectNote";
+    Layout = "~/Views/Teacher/TeaLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="container" style="width: 100%;">
+        <div class="row-full">
+            <div class="card">
+                <div class="card-body">
+                    <div id="serviceName">
+                        <h4 style="font-family: 'Asap'; color: #5f27cd; margin: 0 auto;">Ocena</h4>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="allProject">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="font-family: 'Comfortaa';">
+                        Aktualizacja oceny z projektu
+                    </h5>
+
+                    <hr>
+                    @using (Html.BeginForm("AddProjectNote", "Teacher"))
+                    {
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(x => x.Subject.id_przed)
+                            @Html.HiddenFor(x => x.Student.id_student)
+                            @Html.HiddenFor(x => x.LoginModel.Teacher)
+                            @Html.HiddenFor(x => x.Project.id_proj)
+
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Note, "Ocena", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(x => x.Note)
+                                    @Html.ValidationMessageFor(x => x.Subject.id_prow, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    }
+
+
+                    <hr />
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nazwa etapu</th>
+                                <th scope="col">Ocena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Stages)
+                            {
+
+                                <tr id="@item.IDStudent">
+                                    <a href="@Url.Action("Index","Supervisor",new { id=item.IDStudent})">
+                                        <td>@item.Stage.nazwa_etapu</td>
+                                        <td>@item.Note</td>
+                                        <td>
+                                            @Html.ActionLink("Aktualizuj ocenę", "UpdateStageNote", new { idStud = item.IDStudent, idStage = item.Stage.id_etap }, new { @class = "btn btn-secondary" })
+                                        </td>
+                                    </a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+

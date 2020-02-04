@@ -1,0 +1,1327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrators">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="etapy">
+          <Key>
+            <PropertyRef Name="id_etap" />
+          </Key>
+          <Property Name="id_etap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_proj" Type="int" />
+          <Property Name="nazwa_etapu" Type="varchar" MaxLength="200" />
+          <Property Name="termin_etapu" Type="datetime" />
+        </EntityType>
+        <EntityType Name="grupy_dziekanskie">
+          <Key>
+            <PropertyRef Name="id_grupy" />
+          </Key>
+          <Property Name="id_grupy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa_grupy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.oceny_etapow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="oceny_etapow">
+          <Key>
+            <PropertyRef Name="wartosc" />
+          </Key>
+          <Property Name="id_etap" Type="int" />
+          <Property Name="id_prow" Type="int" />
+          <Property Name="id_student" Type="int" />
+          <Property Name="wartosc" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.oceny_projektow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="oceny_projektow">
+          <Key>
+            <PropertyRef Name="wartosc_oceny_proj" />
+          </Key>
+          <Property Name="id_prow" Type="int" />
+          <Property Name="id_proj" Type="int" />
+          <Property Name="id_student" Type="int" />
+          <Property Name="wartosc_oceny_proj" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Test.dbo.oceny_przedmiotow' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="oceny_przedmiotow">
+          <Property Name="id_student" Type="int" />
+          <Property Name="id_przed" Type="int" />
+          <Property Name="id_prow" Type="int" />
+          <Property Name="wartosc_pceny_przedmiot" Type="varchar" MaxLength="3" />
+        </EntityType>-->
+        <EntityType Name="projekty">
+          <Key>
+            <PropertyRef Name="id_proj" />
+          </Key>
+          <Property Name="id_proj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_prow" Type="int" />
+          <Property Name="id_zajec" Type="int" />
+          <Property Name="nazwa_proj" Type="varchar" MaxLength="200" />
+          <Property Name="termin_wyk" Type="datetime" />
+        </EntityType>
+        <EntityType Name="prowadzacy">
+          <Key>
+            <PropertyRef Name="id_prow" />
+          </Key>
+          <Property Name="id_prow" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_typ_prowadzacy" Type="int" />
+          <Property Name="nr_pok" Type="varchar" MaxLength="5" />
+          <Property Name="haslo" Type="varchar" MaxLength="1024" />
+          <Property Name="imie_prowadzacy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="drugie_imie_prowadzacy" Type="varchar" MaxLength="100" />
+          <Property Name="nazwisko_prowadzacy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="data_urodzenia_prowadzacy" Type="datetime" Nullable="false" />
+          <Property Name="miejsce_urodzenia_prowadzacy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="pesel_prowadzacy" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="email_prowadzacy" Type="varchar" MaxLength="50" />
+          <Property Name="telefon_prowadzacy" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="przedmioty">
+          <Key>
+            <PropertyRef Name="id_przed" />
+          </Key>
+          <Property Name="id_przed" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_prow" Type="int" />
+          <Property Name="nazwa_przed" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="studenci">
+          <Key>
+            <PropertyRef Name="id_student" />
+          </Key>
+          <Property Name="id_student" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_grupy" Type="int" />
+          <Property Name="nr_album" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="imie_student" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="drugie_imie_student" Type="varchar" MaxLength="100" />
+          <Property Name="nazwisko_student" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="data_urodzenia_student" Type="datetime" Nullable="false" />
+          <Property Name="miejsce_urodzenia_student" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="pesel_student" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="email_student" Type="varchar" MaxLength="50" />
+          <Property Name="telefon_student" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="studenci_projekty">
+          <Key>
+            <PropertyRef Name="id_student" />
+            <PropertyRef Name="id_proj" />
+          </Key>
+          <Property Name="id_student" Type="int" Nullable="false" />
+          <Property Name="id_proj" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="studenci_zajecia">
+          <Key>
+            <PropertyRef Name="id_student" />
+            <PropertyRef Name="id_zajec" />
+          </Key>
+          <Property Name="id_student" Type="int" Nullable="false" />
+          <Property Name="id_zajec" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="typy_prowadzacych">
+          <Key>
+            <PropertyRef Name="id_typ_prowadzacy" />
+          </Key>
+          <Property Name="id_typ_prowadzacy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typ_prowadzacy" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="typy_zajec">
+          <Key>
+            <PropertyRef Name="id_typ" />
+          </Key>
+          <Property Name="id_typ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa_typ" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zajecia">
+          <Key>
+            <PropertyRef Name="id_zajec" />
+          </Key>
+          <Property Name="id_zajec" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_przed" Type="int" />
+          <Property Name="id_prow" Type="int" />
+          <Property Name="id_typ" Type="int" />
+          <Property Name="data_zaj" Type="datetime" />
+        </EntityType>
+        <EntityType Name="zajecia_grupy">
+          <Key>
+            <PropertyRef Name="id_zajec" />
+            <PropertyRef Name="id_grupy" />
+          </Key>
+          <Property Name="id_zajec" Type="int" Nullable="false" />
+          <Property Name="id_grupy" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Test.dbo.zgloszenia' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="zgloszenia">
+          <Property Name="id_student" Type="int" />
+          <Property Name="id_proj" Type="int" />
+          <Property Name="data_zgloszenia" Type="datetime" />
+        </EntityType>-->
+        <Association Name="FK_ETAPY_PROJEKTY__PROJEKTY">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="0..1" />
+          <End Role="etapy" Type="Self.etapy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="projekty">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="etapy">
+              <PropertyRef Name="id_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_PR_PROJEKTY__PROJEKTY">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="projekty">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'Test.dbo.oceny_przedmiotow' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_OCENY_PR_PRZEDMIOT_PRZEDMIO" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'Test.dbo.oceny_przedmiotow' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_OCENY_PR_RELATIONS_PROWADZA" />-->
+        <Association Name="FK_OCENY_PR_RELATIONS_PROWADZA2">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'Test.dbo.oceny_przedmiotow' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_OCENY_PR_STUDENCI__STUDENCI" />-->
+        <Association Name="FK_OCENY_PR_STUDENCI__STUDENCI2">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studenci">
+              <PropertyRef Name="id_student" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROJEKTY_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="projekty" Type="Self.projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="projekty">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROJEKTY_ZAJECIA_P_ZAJECIA">
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="0..1" />
+          <End Role="projekty" Type="Self.projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zajecia">
+              <PropertyRef Name="id_zajec" />
+            </Principal>
+            <Dependent Role="projekty">
+              <PropertyRef Name="id_zajec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROWADZA_RELATIONS_TYPY_PRO">
+          <End Role="typy_prowadzacych" Type="Self.typy_prowadzacych" Multiplicity="0..1" />
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typy_prowadzacych">
+              <PropertyRef Name="id_typ_prowadzacy" />
+            </Principal>
+            <Dependent Role="prowadzacy">
+              <PropertyRef Name="id_typ_prowadzacy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRZEDMIO_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="przedmioty" Type="Self.przedmioty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="przedmioty">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_GRUPY_STU_GRUPY_DZ">
+          <End Role="grupy_dziekanskie" Type="Self.grupy_dziekanskie" Multiplicity="0..1" />
+          <End Role="studenci" Type="Self.studenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupy_dziekanskie">
+              <PropertyRef Name="id_grupy" />
+            </Principal>
+            <Dependent Role="studenci">
+              <PropertyRef Name="id_grupy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_STUDENCI__PROJEKTY">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="1" />
+          <End Role="studenci_projekty" Type="Self.studenci_projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="projekty">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="studenci_projekty">
+              <PropertyRef Name="id_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_STUDENCI__STUDENCI">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="1" />
+          <End Role="studenci_projekty" Type="Self.studenci_projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studenci">
+              <PropertyRef Name="id_student" />
+            </Principal>
+            <Dependent Role="studenci_projekty">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_STUDENCI__STUDENCI2">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="1" />
+          <End Role="studenci_zajecia" Type="Self.studenci_zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studenci">
+              <PropertyRef Name="id_student" />
+            </Principal>
+            <Dependent Role="studenci_zajecia">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_STUDENCI__ZAJECIA">
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="1" />
+          <End Role="studenci_zajecia" Type="Self.studenci_zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zajecia">
+              <PropertyRef Name="id_zajec" />
+            </Principal>
+            <Dependent Role="studenci_zajecia">
+              <PropertyRef Name="id_zajec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA__ZAJECIA_G_GRUPY_DZ">
+          <End Role="grupy_dziekanskie" Type="Self.grupy_dziekanskie" Multiplicity="1" />
+          <End Role="zajecia_grupy" Type="Self.zajecia_grupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupy_dziekanskie">
+              <PropertyRef Name="id_grupy" />
+            </Principal>
+            <Dependent Role="zajecia_grupy">
+              <PropertyRef Name="id_grupy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA__ZAJECIA_G_ZAJECIA">
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="1" />
+          <End Role="zajecia_grupy" Type="Self.zajecia_grupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zajecia">
+              <PropertyRef Name="id_zajec" />
+            </Principal>
+            <Dependent Role="zajecia_grupy">
+              <PropertyRef Name="id_zajec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_PRZEDMIOT_PRZEDMIO">
+          <End Role="przedmioty" Type="Self.przedmioty" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="przedmioty">
+              <PropertyRef Name="id_przed" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_przed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_RELATIONS_TYPY_ZAJ">
+          <End Role="typy_zajec" Type="Self.typy_zajec" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typy_zajec">
+              <PropertyRef Name="id_typ" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_typ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'Test.dbo.zgloszenia' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_ZGLOSZEN_PROJEKTY__PROJEKTY" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'Test.dbo.zgloszenia' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_ZGLOSZEN_STUDENCI__STUDENCI" />-->
+        <Function Name="notesbyStage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDStudent" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDProject" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="notesbysubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDStudent" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDSubject" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="projectsbyclass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDProject" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="projectsbyTeacher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDTeacher" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="projectsbyteacherandclass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="classID" Type="nvarchar" Mode="In" />
+          <Parameter Name="teacherID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="studentsbygroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDGroup" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="studentsNotesBySubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDSubject" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDTeacher" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="teacherbyid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeacherID" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="TestModelStoreContainer">
+          <EntitySet Name="administrators" EntityType="Self.administrators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="etapy" EntityType="Self.etapy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="grupy_dziekanskie" EntityType="Self.grupy_dziekanskie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="projekty" EntityType="Self.projekty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prowadzacy" EntityType="Self.prowadzacy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="przedmioty" EntityType="Self.przedmioty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studenci" EntityType="Self.studenci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studenci_projekty" EntityType="Self.studenci_projekty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studenci_zajecia" EntityType="Self.studenci_zajecia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typy_prowadzacych" EntityType="Self.typy_prowadzacych" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typy_zajec" EntityType="Self.typy_zajec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zajecia" EntityType="Self.zajecia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zajecia_grupy" EntityType="Self.zajecia_grupy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oceny_etapow" EntityType="Self.oceny_etapow" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [oceny_etapow].[id_etap] AS [id_etap], 
+    [oceny_etapow].[id_prow] AS [id_prow], 
+    [oceny_etapow].[id_student] AS [id_student], 
+    [oceny_etapow].[wartosc] AS [wartosc]
+    FROM [dbo].[oceny_etapow] AS [oceny_etapow]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="oceny_projektow" EntityType="Self.oceny_projektow" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [oceny_projektow].[id_prow] AS [id_prow], 
+    [oceny_projektow].[id_proj] AS [id_proj], 
+    [oceny_projektow].[id_student] AS [id_student], 
+    [oceny_projektow].[wartosc_oceny_proj] AS [wartosc_oceny_proj]
+    FROM [dbo].[oceny_projektow] AS [oceny_projektow]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ETAPY_PROJEKTY__PROJEKTY" Association="Self.FK_ETAPY_PROJEKTY__PROJEKTY">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="etapy" EntitySet="etapy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_PROJEKTY__PROJEKTY" Association="Self.FK_OCENY_PR_PROJEKTY__PROJEKTY">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_RELATIONS_PROWADZA2" Association="Self.FK_OCENY_PR_RELATIONS_PROWADZA2">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_STUDENCI__STUDENCI2" Association="Self.FK_OCENY_PR_STUDENCI__STUDENCI2">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROJEKTY_PROWADZAC_PROWADZA" Association="Self.FK_PROJEKTY_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="projekty" EntitySet="projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROJEKTY_ZAJECIA_P_ZAJECIA" Association="Self.FK_PROJEKTY_ZAJECIA_P_ZAJECIA">
+            <End Role="zajecia" EntitySet="zajecia" />
+            <End Role="projekty" EntitySet="projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROWADZA_RELATIONS_TYPY_PRO" Association="Self.FK_PROWADZA_RELATIONS_TYPY_PRO">
+            <End Role="typy_prowadzacych" EntitySet="typy_prowadzacych" />
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRZEDMIO_PROWADZAC_PROWADZA" Association="Self.FK_PRZEDMIO_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="przedmioty" EntitySet="przedmioty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_GRUPY_STU_GRUPY_DZ" Association="Self.FK_STUDENCI_GRUPY_STU_GRUPY_DZ">
+            <End Role="grupy_dziekanskie" EntitySet="grupy_dziekanskie" />
+            <End Role="studenci" EntitySet="studenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_STUDENCI__PROJEKTY" Association="Self.FK_STUDENCI_STUDENCI__PROJEKTY">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="studenci_projekty" EntitySet="studenci_projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_STUDENCI__STUDENCI" Association="Self.FK_STUDENCI_STUDENCI__STUDENCI">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="studenci_projekty" EntitySet="studenci_projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_STUDENCI__STUDENCI2" Association="Self.FK_STUDENCI_STUDENCI__STUDENCI2">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="studenci_zajecia" EntitySet="studenci_zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_STUDENCI__ZAJECIA" Association="Self.FK_STUDENCI_STUDENCI__ZAJECIA">
+            <End Role="zajecia" EntitySet="zajecia" />
+            <End Role="studenci_zajecia" EntitySet="studenci_zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA__ZAJECIA_G_GRUPY_DZ" Association="Self.FK_ZAJECIA__ZAJECIA_G_GRUPY_DZ">
+            <End Role="grupy_dziekanskie" EntitySet="grupy_dziekanskie" />
+            <End Role="zajecia_grupy" EntitySet="zajecia_grupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA__ZAJECIA_G_ZAJECIA" Association="Self.FK_ZAJECIA__ZAJECIA_G_ZAJECIA">
+            <End Role="zajecia" EntitySet="zajecia" />
+            <End Role="zajecia_grupy" EntitySet="zajecia_grupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_PROWADZAC_PROWADZA" Association="Self.FK_ZAJECIA_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_PRZEDMIOT_PRZEDMIO" Association="Self.FK_ZAJECIA_PRZEDMIOT_PRZEDMIO">
+            <End Role="przedmioty" EntitySet="przedmioty" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_RELATIONS_TYPY_ZAJ" Association="Self.FK_ZAJECIA_RELATIONS_TYPY_ZAJ">
+            <End Role="typy_zajec" EntitySet="typy_zajec" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="etapy">
+          <Key>
+            <PropertyRef Name="id_etap" />
+          </Key>
+          <Property Name="id_etap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_proj" Type="Int32" />
+          <Property Name="nazwa_etapu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="termin_etapu" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="projekty" Relationship="Self.FK_ETAPY_PROJEKTY__PROJEKTY" FromRole="etapy" ToRole="projekty" />
+          <NavigationProperty Name="oceny_etapow" Relationship="Self.FK_OCENY_ET_ETAPY_OCE_ETAPY" FromRole="etapy" ToRole="oceny_etapow" />
+        </EntityType>
+        <EntityType Name="grupy_dziekanskie">
+          <Key>
+            <PropertyRef Name="id_grupy" />
+          </Key>
+          <Property Name="id_grupy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa_grupy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="studenci" Relationship="Self.FK_STUDENCI_GRUPY_STU_GRUPY_DZ" FromRole="grupy_dziekanskie" ToRole="studenci" />
+          <NavigationProperty Name="zajecia" Relationship="Self.zajecia_grupy" FromRole="grupy_dziekanskie" ToRole="zajecia" />
+        </EntityType>
+        <EntityType Name="projekty">
+          <Key>
+            <PropertyRef Name="id_proj" />
+          </Key>
+          <Property Name="id_proj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_prow" Type="Int32" />
+          <Property Name="id_zajec" Type="Int32" />
+          <Property Name="nazwa_proj" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="termin_wyk" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="etapy" Relationship="Self.FK_ETAPY_PROJEKTY__PROJEKTY" FromRole="projekty" ToRole="etapy" />
+          <NavigationProperty Name="oceny_projektow" Relationship="Self.FK_OCENY_PR_PROJEKTY__PROJEKTY" FromRole="projekty" ToRole="oceny_projektow" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_PROJEKTY_PROWADZAC_PROWADZA" FromRole="projekty" ToRole="prowadzacy" />
+          <NavigationProperty Name="zajecia" Relationship="Self.FK_PROJEKTY_ZAJECIA_P_ZAJECIA" FromRole="projekty" ToRole="zajecia" />
+          <NavigationProperty Name="studenci" Relationship="Self.studenci_projekty" FromRole="projekty" ToRole="studenci" />
+        </EntityType>
+        <EntityType Name="prowadzacy">
+          <Key>
+            <PropertyRef Name="id_prow" />
+          </Key>
+          <Property Name="id_prow" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_typ_prowadzacy" Type="Int32" />
+          <Property Name="nr_pok" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="haslo" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="imie_prowadzacy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="drugie_imie_prowadzacy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nazwisko_prowadzacy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_urodzenia_prowadzacy" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="miejsce_urodzenia_prowadzacy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pesel_prowadzacy" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_prowadzacy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefon_prowadzacy" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="projekty" Relationship="Self.FK_PROJEKTY_PROWADZAC_PROWADZA" FromRole="prowadzacy" ToRole="projekty" />
+          <NavigationProperty Name="oceny_etapow" Relationship="Self.FK_OCENY_ET_RELATIONS_PROWADZA" FromRole="prowadzacy" ToRole="oceny_etapow" />
+          <NavigationProperty Name="oceny_projektow" Relationship="Self.FK_OCENY_PR_RELATIONS_PROWADZA2" FromRole="prowadzacy" ToRole="oceny_projektow" />
+          <NavigationProperty Name="typy_prowadzacych" Relationship="Self.FK_PROWADZA_RELATIONS_TYPY_PRO" FromRole="prowadzacy" ToRole="typy_prowadzacych" />
+          <NavigationProperty Name="przedmioty" Relationship="Self.FK_PRZEDMIO_PROWADZAC_PROWADZA" FromRole="prowadzacy" ToRole="przedmioty" />
+          <NavigationProperty Name="zajecia" Relationship="Self.FK_ZAJECIA_PROWADZAC_PROWADZA" FromRole="prowadzacy" ToRole="zajecia" />
+        </EntityType>
+        <EntityType Name="przedmioty">
+          <Key>
+            <PropertyRef Name="id_przed" />
+          </Key>
+          <Property Name="id_przed" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_prow" Type="Int32" />
+          <Property Name="nazwa_przed" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_PRZEDMIO_PROWADZAC_PROWADZA" FromRole="przedmioty" ToRole="prowadzacy" />
+          <NavigationProperty Name="zajecia" Relationship="Self.FK_ZAJECIA_PRZEDMIOT_PRZEDMIO" FromRole="przedmioty" ToRole="zajecia" />
+        </EntityType>
+        <EntityType Name="studenci">
+          <Key>
+            <PropertyRef Name="id_student" />
+          </Key>
+          <Property Name="id_student" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_grupy" Type="Int32" />
+          <Property Name="nr_album" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="imie_student" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="drugie_imie_student" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nazwisko_student" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_urodzenia_student" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="miejsce_urodzenia_student" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pesel_student" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_student" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefon_student" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="grupy_dziekanskie" Relationship="Self.FK_STUDENCI_GRUPY_STU_GRUPY_DZ" FromRole="studenci" ToRole="grupy_dziekanskie" />
+          <NavigationProperty Name="oceny_etapow" Relationship="Self.FK_OCENY_ET_STUDENCI__STUDENCI" FromRole="studenci" ToRole="oceny_etapow" />
+          <NavigationProperty Name="oceny_projektow" Relationship="Self.FK_OCENY_PR_STUDENCI__STUDENCI2" FromRole="studenci" ToRole="oceny_projektow" />
+          <NavigationProperty Name="projekty" Relationship="Self.studenci_projekty" FromRole="studenci" ToRole="projekty" />
+          <NavigationProperty Name="zajecia" Relationship="Self.studenci_zajecia" FromRole="studenci" ToRole="zajecia" />
+        </EntityType>
+        <EntityType Name="typy_prowadzacych">
+          <Key>
+            <PropertyRef Name="id_typ_prowadzacy" />
+          </Key>
+          <Property Name="id_typ_prowadzacy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typ_prowadzacy" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_PROWADZA_RELATIONS_TYPY_PRO" FromRole="typy_prowadzacych" ToRole="prowadzacy" />
+        </EntityType>
+        <EntityType Name="typy_zajec">
+          <Key>
+            <PropertyRef Name="id_typ" />
+          </Key>
+          <Property Name="id_typ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa_typ" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="zajecia" Relationship="Self.FK_ZAJECIA_RELATIONS_TYPY_ZAJ" FromRole="typy_zajec" ToRole="zajecia" />
+        </EntityType>
+        <EntityType Name="zajecia">
+          <Key>
+            <PropertyRef Name="id_zajec" />
+          </Key>
+          <Property Name="id_zajec" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_przed" Type="Int32" />
+          <Property Name="id_prow" Type="Int32" />
+          <Property Name="id_typ" Type="Int32" />
+          <Property Name="data_zaj" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="projekty" Relationship="Self.FK_PROJEKTY_ZAJECIA_P_ZAJECIA" FromRole="zajecia" ToRole="projekty" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_ZAJECIA_PROWADZAC_PROWADZA" FromRole="zajecia" ToRole="prowadzacy" />
+          <NavigationProperty Name="przedmioty" Relationship="Self.FK_ZAJECIA_PRZEDMIOT_PRZEDMIO" FromRole="zajecia" ToRole="przedmioty" />
+          <NavigationProperty Name="typy_zajec" Relationship="Self.FK_ZAJECIA_RELATIONS_TYPY_ZAJ" FromRole="zajecia" ToRole="typy_zajec" />
+          <NavigationProperty Name="studenci" Relationship="Self.studenci_zajecia" FromRole="zajecia" ToRole="studenci" />
+          <NavigationProperty Name="grupy_dziekanskie" Relationship="Self.zajecia_grupy" FromRole="zajecia" ToRole="grupy_dziekanskie" />
+        </EntityType>
+        <EntityType Name="oceny_etapow">
+          <Key>
+            <PropertyRef Name="wartosc" />
+          </Key>
+          <Property Name="id_etap" Type="Int32" />
+          <Property Name="id_prow" Type="Int32" />
+          <Property Name="id_student" Type="Int32" />
+          <Property Name="wartosc" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="etapy" Relationship="Self.FK_OCENY_ET_ETAPY_OCE_ETAPY" FromRole="oceny_etapow" ToRole="etapy" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_OCENY_ET_RELATIONS_PROWADZA" FromRole="oceny_etapow" ToRole="prowadzacy" />
+          <NavigationProperty Name="studenci" Relationship="Self.FK_OCENY_ET_STUDENCI__STUDENCI" FromRole="oceny_etapow" ToRole="studenci" />
+        </EntityType>
+        <EntityType Name="oceny_projektow">
+          <Key>
+            <PropertyRef Name="wartosc_oceny_proj" />
+          </Key>
+          <Property Name="id_prow" Type="Int32" />
+          <Property Name="id_proj" Type="Int32" />
+          <Property Name="id_student" Type="Int32" />
+          <Property Name="wartosc_oceny_proj" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="projekty" Relationship="Self.FK_OCENY_PR_PROJEKTY__PROJEKTY" FromRole="oceny_projektow" ToRole="projekty" />
+          <NavigationProperty Name="prowadzacy" Relationship="Self.FK_OCENY_PR_RELATIONS_PROWADZA2" FromRole="oceny_projektow" ToRole="prowadzacy" />
+          <NavigationProperty Name="studenci" Relationship="Self.FK_OCENY_PR_STUDENCI__STUDENCI2" FromRole="oceny_projektow" ToRole="studenci" />
+        </EntityType>
+        <Association Name="FK_ETAPY_PROJEKTY__PROJEKTY">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="0..1" />
+          <End Role="etapy" Type="Self.etapy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="projekty">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="etapy">
+              <PropertyRef Name="id_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_ET_ETAPY_OCE_ETAPY">
+          <End Role="etapy" Type="Self.etapy" Multiplicity="0..1" />
+          <End Role="oceny_etapow" Type="Self.oceny_etapow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="etapy">
+              <PropertyRef Name="id_etap" />
+            </Principal>
+            <Dependent Role="oceny_etapow">
+              <PropertyRef Name="id_etap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STUDENCI_GRUPY_STU_GRUPY_DZ">
+          <End Role="grupy_dziekanskie" Type="Self.grupy_dziekanskie" Multiplicity="0..1" />
+          <End Role="studenci" Type="Self.studenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupy_dziekanskie">
+              <PropertyRef Name="id_grupy" />
+            </Principal>
+            <Dependent Role="studenci">
+              <PropertyRef Name="id_grupy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_PR_PROJEKTY__PROJEKTY">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="projekty">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROJEKTY_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="projekty" Type="Self.projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="projekty">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROJEKTY_ZAJECIA_P_ZAJECIA">
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="0..1" />
+          <End Role="projekty" Type="Self.projekty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zajecia">
+              <PropertyRef Name="id_zajec" />
+            </Principal>
+            <Dependent Role="projekty">
+              <PropertyRef Name="id_zajec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_ET_RELATIONS_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="oceny_etapow" Type="Self.oceny_etapow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="oceny_etapow">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_PR_RELATIONS_PROWADZA2">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROWADZA_RELATIONS_TYPY_PRO">
+          <End Role="typy_prowadzacych" Type="Self.typy_prowadzacych" Multiplicity="0..1" />
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typy_prowadzacych">
+              <PropertyRef Name="id_typ_prowadzacy" />
+            </Principal>
+            <Dependent Role="prowadzacy">
+              <PropertyRef Name="id_typ_prowadzacy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRZEDMIO_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="przedmioty" Type="Self.przedmioty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="przedmioty">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_PROWADZAC_PROWADZA">
+          <End Role="prowadzacy" Type="Self.prowadzacy" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prowadzacy">
+              <PropertyRef Name="id_prow" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_prow" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_PRZEDMIOT_PRZEDMIO">
+          <End Role="przedmioty" Type="Self.przedmioty" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="przedmioty">
+              <PropertyRef Name="id_przed" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_przed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_ET_STUDENCI__STUDENCI">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="0..1" />
+          <End Role="oceny_etapow" Type="Self.oceny_etapow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studenci">
+              <PropertyRef Name="id_student" />
+            </Principal>
+            <Dependent Role="oceny_etapow">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCENY_PR_STUDENCI__STUDENCI2">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="0..1" />
+          <End Role="oceny_projektow" Type="Self.oceny_projektow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studenci">
+              <PropertyRef Name="id_student" />
+            </Principal>
+            <Dependent Role="oceny_projektow">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZAJECIA_RELATIONS_TYPY_ZAJ">
+          <End Role="typy_zajec" Type="Self.typy_zajec" Multiplicity="0..1" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typy_zajec">
+              <PropertyRef Name="id_typ" />
+            </Principal>
+            <Dependent Role="zajecia">
+              <PropertyRef Name="id_typ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="studenci_projekty">
+          <End Role="projekty" Type="Self.projekty" Multiplicity="*" />
+          <End Role="studenci" Type="Self.studenci" Multiplicity="*" />
+        </Association>
+        <Association Name="studenci_zajecia">
+          <End Role="studenci" Type="Self.studenci" Multiplicity="*" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+        </Association>
+        <Association Name="zajecia_grupy">
+          <End Role="grupy_dziekanskie" Type="Self.grupy_dziekanskie" Multiplicity="*" />
+          <End Role="zajecia" Type="Self.zajecia" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="etapy" EntityType="Self.etapy" />
+          <EntitySet Name="grupy_dziekanskie" EntityType="Self.grupy_dziekanskie" />
+          <EntitySet Name="projekty" EntityType="Self.projekty" />
+          <EntitySet Name="prowadzacy" EntityType="Self.prowadzacy" />
+          <EntitySet Name="przedmioty" EntityType="Self.przedmioty" />
+          <EntitySet Name="studenci" EntityType="Self.studenci" />
+          <EntitySet Name="typy_prowadzacych" EntityType="Self.typy_prowadzacych" />
+          <EntitySet Name="typy_zajec" EntityType="Self.typy_zajec" />
+          <EntitySet Name="zajecia" EntityType="Self.zajecia" />
+          <EntitySet Name="oceny_etapow" EntityType="Self.oceny_etapow" />
+          <EntitySet Name="oceny_projektow" EntityType="Self.oceny_projektow" />
+          <AssociationSet Name="FK_ETAPY_PROJEKTY__PROJEKTY" Association="Self.FK_ETAPY_PROJEKTY__PROJEKTY">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="etapy" EntitySet="etapy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_ET_ETAPY_OCE_ETAPY" Association="Self.FK_OCENY_ET_ETAPY_OCE_ETAPY">
+            <End Role="etapy" EntitySet="etapy" />
+            <End Role="oceny_etapow" EntitySet="oceny_etapow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STUDENCI_GRUPY_STU_GRUPY_DZ" Association="Self.FK_STUDENCI_GRUPY_STU_GRUPY_DZ">
+            <End Role="grupy_dziekanskie" EntitySet="grupy_dziekanskie" />
+            <End Role="studenci" EntitySet="studenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_PROJEKTY__PROJEKTY" Association="Self.FK_OCENY_PR_PROJEKTY__PROJEKTY">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROJEKTY_PROWADZAC_PROWADZA" Association="Self.FK_PROJEKTY_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="projekty" EntitySet="projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROJEKTY_ZAJECIA_P_ZAJECIA" Association="Self.FK_PROJEKTY_ZAJECIA_P_ZAJECIA">
+            <End Role="zajecia" EntitySet="zajecia" />
+            <End Role="projekty" EntitySet="projekty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_ET_RELATIONS_PROWADZA" Association="Self.FK_OCENY_ET_RELATIONS_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="oceny_etapow" EntitySet="oceny_etapow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_RELATIONS_PROWADZA2" Association="Self.FK_OCENY_PR_RELATIONS_PROWADZA2">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROWADZA_RELATIONS_TYPY_PRO" Association="Self.FK_PROWADZA_RELATIONS_TYPY_PRO">
+            <End Role="typy_prowadzacych" EntitySet="typy_prowadzacych" />
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRZEDMIO_PROWADZAC_PROWADZA" Association="Self.FK_PRZEDMIO_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="przedmioty" EntitySet="przedmioty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_PROWADZAC_PROWADZA" Association="Self.FK_ZAJECIA_PROWADZAC_PROWADZA">
+            <End Role="prowadzacy" EntitySet="prowadzacy" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_PRZEDMIOT_PRZEDMIO" Association="Self.FK_ZAJECIA_PRZEDMIOT_PRZEDMIO">
+            <End Role="przedmioty" EntitySet="przedmioty" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_ET_STUDENCI__STUDENCI" Association="Self.FK_OCENY_ET_STUDENCI__STUDENCI">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="oceny_etapow" EntitySet="oceny_etapow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCENY_PR_STUDENCI__STUDENCI2" Association="Self.FK_OCENY_PR_STUDENCI__STUDENCI2">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="oceny_projektow" EntitySet="oceny_projektow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZAJECIA_RELATIONS_TYPY_ZAJ" Association="Self.FK_ZAJECIA_RELATIONS_TYPY_ZAJ">
+            <End Role="typy_zajec" EntitySet="typy_zajec" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="studenci_projekty" Association="Self.studenci_projekty">
+            <End Role="projekty" EntitySet="projekty" />
+            <End Role="studenci" EntitySet="studenci" />
+          </AssociationSet>
+          <AssociationSet Name="studenci_zajecia" Association="Self.studenci_zajecia">
+            <End Role="studenci" EntitySet="studenci" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <AssociationSet Name="zajecia_grupy" Association="Self.zajecia_grupy">
+            <End Role="grupy_dziekanskie" EntitySet="grupy_dziekanskie" />
+            <End Role="zajecia" EntitySet="zajecia" />
+          </AssociationSet>
+          <EntitySet Name="administrators" EntityType="TestModel.administrators" />
+          <FunctionImport Name="studentsbygroup" ReturnType="Collection(TestModel.studentsbygroup_Result)">
+          <Parameter Name="IDGroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="notesbyStage" ReturnType="Collection(TestModel.notesbyStage_Result)">
+            <Parameter Name="IDStudent" Mode="In" Type="String" />
+            <Parameter Name="IDProject" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="notesbysubject" ReturnType="Collection(TestModel.notesbysubject_Result)">
+            <Parameter Name="IDStudent" Mode="In" Type="String" />
+            <Parameter Name="IDSubject" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="projectsbyclass" ReturnType="Collection(TestModel.projectsbyclass_Result)">
+          <Parameter Name="IDProject" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="projectsbyTeacher" ReturnType="Collection(TestModel.projectsbyTeacher_Result)">
+          <Parameter Name="IDTeacher" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="projectsbyteacherandclass" ReturnType="Collection(TestModel.projectsbyteacherandclass_Result)">
+            <Parameter Name="classID" Mode="In" Type="String" />
+            <Parameter Name="teacherID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="studentsNotesBySubject" ReturnType="Collection(TestModel.studentsNotesBySubject_Result)">
+            <Parameter Name="IDSubject" Mode="In" Type="String" />
+            <Parameter Name="IDTeacher" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="teacherbyid" ReturnType="Collection(String)">
+          <Parameter Name="TeacherID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="studentsbygroupTwo" ReturnType="Collection(TestModel.studentsbygroup_Result)">
+          <Parameter Name="IDGroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="teacherbyid1" ReturnType="Collection(TestModel.teacherbyid1_Result)">
+          <Parameter Name="TeacherID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="projectsbyTeacher1" ReturnType="Collection(TestModel.projectsbyteacherandclass_Result)">
+          <Parameter Name="IDTeacher" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="administrators">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="studentsbygroup_Result">
+          <Property Type="String" Name="imie_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nazwisko_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nazwa_grupy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nr_album" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="notesbyStage_Result">
+          <Property Type="Int32" Name="id_etap" Nullable="false" />
+          <Property Type="DateTime" Name="termin_etapu" Nullable="true" Precision="23" />
+          <Property Type="String" Name="nazwa_etapu" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="wartosc" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="notesbysubject_Result">
+          <Property Type="Int32" Name="id_przed" Nullable="false" />
+          <Property Type="Int32" Name="id_student" Nullable="false" />
+          <Property Type="String" Name="wartosc_pceny_przedmiot" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="nazwa_przed" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="projectsbyclass_Result">
+          <Property Type="Int32" Name="id_student" Nullable="false" />
+          <Property Type="Int32" Name="id_proj" Nullable="false" />
+          <Property Type="String" Name="imie_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nazwisko_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="wartosc_oceny_proj" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="projectsbyTeacher_Result">
+          <Property Type="Int32" Name="id_prow" Nullable="false" />
+          <Property Type="String" Name="nazwa_przed" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="nazwa_proj" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="projectsbyteacherandclass_Result">
+          <Property Type="String" Name="nazwa_proj" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="id_proj" Nullable="false" />
+          <Property Type="String" Name="nazwa_przed" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="studentsNotesBySubject_Result">
+          <Property Type="Int32" Name="id_student" Nullable="false" />
+          <Property Type="Int32" Name="id_przed" Nullable="false" />
+          <Property Type="String" Name="nazwa_przed" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="imie_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="nazwisko_student" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="wartosc_pceny_przedmiot" Nullable="true" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="teacherId_Result" />
+        <ComplexType Name="teacherbyid1_Result">
+          <Property Type="Int32" Name="id_grupy" Nullable="false" />
+          <Property Type="String" Name="nazwa_grupy" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+          <EntitySetMapping Name="etapy">
+            <EntityTypeMapping TypeName="TestModel.etapy">
+              <MappingFragment StoreEntitySet="etapy">
+                <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+                <ScalarProperty Name="nazwa_etapu" ColumnName="nazwa_etapu" />
+                <ScalarProperty Name="termin_etapu" ColumnName="termin_etapu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grupy_dziekanskie">
+            <EntityTypeMapping TypeName="TestModel.grupy_dziekanskie">
+              <MappingFragment StoreEntitySet="grupy_dziekanskie">
+                <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+                <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projekty">
+            <EntityTypeMapping TypeName="TestModel.projekty">
+              <MappingFragment StoreEntitySet="projekty">
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+                <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+                <ScalarProperty Name="termin_wyk" ColumnName="termin_wyk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prowadzacy">
+            <EntityTypeMapping TypeName="TestModel.prowadzacy">
+              <MappingFragment StoreEntitySet="prowadzacy">
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="id_typ_prowadzacy" ColumnName="id_typ_prowadzacy" />
+                <ScalarProperty Name="nr_pok" ColumnName="nr_pok" />
+                <ScalarProperty Name="haslo" ColumnName="haslo" />
+                <ScalarProperty Name="imie_prowadzacy" ColumnName="imie_prowadzacy" />
+                <ScalarProperty Name="drugie_imie_prowadzacy" ColumnName="drugie_imie_prowadzacy" />
+                <ScalarProperty Name="nazwisko_prowadzacy" ColumnName="nazwisko_prowadzacy" />
+                <ScalarProperty Name="data_urodzenia_prowadzacy" ColumnName="data_urodzenia_prowadzacy" />
+                <ScalarProperty Name="miejsce_urodzenia_prowadzacy" ColumnName="miejsce_urodzenia_prowadzacy" />
+                <ScalarProperty Name="pesel_prowadzacy" ColumnName="pesel_prowadzacy" />
+                <ScalarProperty Name="email_prowadzacy" ColumnName="email_prowadzacy" />
+                <ScalarProperty Name="telefon_prowadzacy" ColumnName="telefon_prowadzacy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="przedmioty">
+            <EntityTypeMapping TypeName="TestModel.przedmioty">
+              <MappingFragment StoreEntitySet="przedmioty">
+                <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studenci">
+            <EntityTypeMapping TypeName="TestModel.studenci">
+              <MappingFragment StoreEntitySet="studenci">
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+                <ScalarProperty Name="nr_album" ColumnName="nr_album" />
+                <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+                <ScalarProperty Name="drugie_imie_student" ColumnName="drugie_imie_student" />
+                <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+                <ScalarProperty Name="data_urodzenia_student" ColumnName="data_urodzenia_student" />
+                <ScalarProperty Name="miejsce_urodzenia_student" ColumnName="miejsce_urodzenia_student" />
+                <ScalarProperty Name="pesel_student" ColumnName="pesel_student" />
+                <ScalarProperty Name="email_student" ColumnName="email_student" />
+                <ScalarProperty Name="telefon_student" ColumnName="telefon_student" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typy_prowadzacych">
+            <EntityTypeMapping TypeName="TestModel.typy_prowadzacych">
+              <MappingFragment StoreEntitySet="typy_prowadzacych">
+                <ScalarProperty Name="id_typ_prowadzacy" ColumnName="id_typ_prowadzacy" />
+                <ScalarProperty Name="typ_prowadzacy" ColumnName="typ_prowadzacy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typy_zajec">
+            <EntityTypeMapping TypeName="TestModel.typy_zajec">
+              <MappingFragment StoreEntitySet="typy_zajec">
+                <ScalarProperty Name="id_typ" ColumnName="id_typ" />
+                <ScalarProperty Name="nazwa_typ" ColumnName="nazwa_typ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zajecia">
+            <EntityTypeMapping TypeName="TestModel.zajecia">
+              <MappingFragment StoreEntitySet="zajecia">
+                <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+                <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="id_typ" ColumnName="id_typ" />
+                <ScalarProperty Name="data_zaj" ColumnName="data_zaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oceny_etapow">
+            <EntityTypeMapping TypeName="TestModel.oceny_etapow">
+              <MappingFragment StoreEntitySet="oceny_etapow">
+                <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="wartosc" ColumnName="wartosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oceny_projektow">
+            <EntityTypeMapping TypeName="TestModel.oceny_projektow">
+              <MappingFragment StoreEntitySet="oceny_projektow">
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="wartosc_oceny_proj" ColumnName="wartosc_oceny_proj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="studenci_projekty" TypeName="TestModel.studenci_projekty" StoreEntitySet="studenci_projekty">
+            <EndProperty Name="projekty">
+              <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+            </EndProperty>
+            <EndProperty Name="studenci">
+              <ScalarProperty Name="id_student" ColumnName="id_student" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="studenci_zajecia" TypeName="TestModel.studenci_zajecia" StoreEntitySet="studenci_zajecia">
+            <EndProperty Name="studenci">
+              <ScalarProperty Name="id_student" ColumnName="id_student" />
+            </EndProperty>
+            <EndProperty Name="zajecia">
+              <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="zajecia_grupy" TypeName="TestModel.zajecia_grupy" StoreEntitySet="zajecia_grupy">
+            <EndProperty Name="grupy_dziekanskie">
+              <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+            </EndProperty>
+            <EndProperty Name="zajecia">
+              <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="administrators">
+            <EntityTypeMapping TypeName="TestModel.administrators">
+              <MappingFragment StoreEntitySet="administrators">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="studentsbygroup" FunctionName="TestModel.Store.studentsbygroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.studentsbygroup_Result">
+                <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+                <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+                <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="notesbyStage" FunctionName="TestModel.Store.notesbyStage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.notesbyStage_Result">
+                <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+                <ScalarProperty Name="termin_etapu" ColumnName="termin_etapu" />
+                <ScalarProperty Name="nazwa_etapu" ColumnName="nazwa_etapu" />
+                <ScalarProperty Name="wartosc" ColumnName="wartosc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="notesbysubject" FunctionName="TestModel.Store.notesbysubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.notesbysubject_Result">
+                <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="wartosc_pceny_przedmiot" ColumnName="wartosc_pceny_przedmiot" />
+                <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="projectsbyclass" FunctionName="TestModel.Store.projectsbyclass">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.projectsbyclass_Result">
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+                <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+                <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+                <ScalarProperty Name="wartosc_oceny_proj" ColumnName="wartosc_oceny_proj" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="projectsbyTeacher" FunctionName="TestModel.Store.projectsbyTeacher">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.projectsbyTeacher_Result">
+                <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+                <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+                <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="projectsbyteacherandclass" FunctionName="TestModel.Store.projectsbyteacherandclass">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.projectsbyteacherandclass_Result">
+                <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="studentsNotesBySubject" FunctionName="TestModel.Store.studentsNotesBySubject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.studentsNotesBySubject_Result">
+                <ScalarProperty Name="id_student" ColumnName="id_student" />
+                <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+                <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+                <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+                <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+                <ScalarProperty Name="wartosc_pceny_przedmiot" ColumnName="wartosc_pceny_przedmiot" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="studentsbygroupTwo" FunctionName="TestModel.Store.studentsbygroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.studentsbygroup_Result">
+                <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+                <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+                <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+                <ScalarProperty Name="nr_album" ColumnName="nr_album" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="teacherbyid1" FunctionName="TestModel.Store.teacherbyid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.teacherbyid1_Result">
+                <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+                <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="projectsbyTeacher1" FunctionName="TestModel.Store.projectsbyTeacher">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestModel.projectsbyteacherandclass_Result">
+                <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+                <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

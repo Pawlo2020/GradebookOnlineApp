@@ -1,0 +1,71 @@
+﻿@model GradebookOnlineApp.Models.LoginUser
+@{
+    ViewData["Title"] = "Index";
+}
+<!Doctype html>
+<HTML lang="en">
+<HEAD>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <LINK href="/Content/logLayout.css"
+          rel="stylesheet" type="text/css">
+</HEAD>
+<BODY>
+    <div class="container-bg">
+        <div class="d-flex flex-row justify-content-center align-items-center">
+
+            <div class="p-2 my-flex-item">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-family: 'Asap'; font-style: italic; color: #10ac84">Dziennik ocen</h3>
+                        <hr>
+                        @using (Html.BeginForm("Login","Login"))
+                        {
+                            <!-- Login -->
+                            <div class="form-group">
+                                <label class="card-subtitle mb-2 text-muted" for="loginText">Login:</label>
+                                @Html.TextBoxFor(m => m.LOGIN, new { @class = "form-control", @id = "loginText" })
+                                @Html.ValidationMessageFor(x => x.LOGIN, null, new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label class="card-subtitle mb-2 text-muted" for="passText">Hasło:</label>
+                                @Html.PasswordFor(x => x.PASS, new { @class = "form-control", @id = "passText" })
+                                @Html.ValidationMessageFor(x => x.PASS, null, new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.RadioButton("1", new { @class = "form-control", @name = "optradio"}, false) Student
+                                <span style="padding: 8px"></span>
+                                @Html.RadioButton("2", new { @class = "form-control", @name = "optradio"}, false) Prowadzący
+                                <span style="padding: 8px"></span>
+                                @Html.RadioButton("3", new { @class = "form-control", @name = "optradio"}, false) Administrator
+                            </div>
+
+                            <div class="row justify-content-center">
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" formmethod="post" type="submit" asp-action="Login" asp-controller="Login">Zaloguj</button>
+
+
+                                </div>
+
+
+                            </div>
+
+                            <!-- Sign in button -->
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+</BODY>
+</HTML>

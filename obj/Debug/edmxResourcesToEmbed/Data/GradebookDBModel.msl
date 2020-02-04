@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+    <EntitySetMapping Name="etapy">
+      <EntityTypeMapping TypeName="TestModel.etapy">
+        <MappingFragment StoreEntitySet="etapy">
+          <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+          <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+          <ScalarProperty Name="nazwa_etapu" ColumnName="nazwa_etapu" />
+          <ScalarProperty Name="termin_etapu" ColumnName="termin_etapu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="grupy_dziekanskie">
+      <EntityTypeMapping TypeName="TestModel.grupy_dziekanskie">
+        <MappingFragment StoreEntitySet="grupy_dziekanskie">
+          <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+          <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projekty">
+      <EntityTypeMapping TypeName="TestModel.projekty">
+        <MappingFragment StoreEntitySet="projekty">
+          <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+          <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+          <ScalarProperty Name="termin_wyk" ColumnName="termin_wyk" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prowadzacy">
+      <EntityTypeMapping TypeName="TestModel.prowadzacy">
+        <MappingFragment StoreEntitySet="prowadzacy">
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="id_typ_prowadzacy" ColumnName="id_typ_prowadzacy" />
+          <ScalarProperty Name="nr_pok" ColumnName="nr_pok" />
+          <ScalarProperty Name="haslo" ColumnName="haslo" />
+          <ScalarProperty Name="imie_prowadzacy" ColumnName="imie_prowadzacy" />
+          <ScalarProperty Name="drugie_imie_prowadzacy" ColumnName="drugie_imie_prowadzacy" />
+          <ScalarProperty Name="nazwisko_prowadzacy" ColumnName="nazwisko_prowadzacy" />
+          <ScalarProperty Name="data_urodzenia_prowadzacy" ColumnName="data_urodzenia_prowadzacy" />
+          <ScalarProperty Name="miejsce_urodzenia_prowadzacy" ColumnName="miejsce_urodzenia_prowadzacy" />
+          <ScalarProperty Name="pesel_prowadzacy" ColumnName="pesel_prowadzacy" />
+          <ScalarProperty Name="email_prowadzacy" ColumnName="email_prowadzacy" />
+          <ScalarProperty Name="telefon_prowadzacy" ColumnName="telefon_prowadzacy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="przedmioty">
+      <EntityTypeMapping TypeName="TestModel.przedmioty">
+        <MappingFragment StoreEntitySet="przedmioty">
+          <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="studenci">
+      <EntityTypeMapping TypeName="TestModel.studenci">
+        <MappingFragment StoreEntitySet="studenci">
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+          <ScalarProperty Name="nr_album" ColumnName="nr_album" />
+          <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+          <ScalarProperty Name="drugie_imie_student" ColumnName="drugie_imie_student" />
+          <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+          <ScalarProperty Name="data_urodzenia_student" ColumnName="data_urodzenia_student" />
+          <ScalarProperty Name="miejsce_urodzenia_student" ColumnName="miejsce_urodzenia_student" />
+          <ScalarProperty Name="pesel_student" ColumnName="pesel_student" />
+          <ScalarProperty Name="email_student" ColumnName="email_student" />
+          <ScalarProperty Name="telefon_student" ColumnName="telefon_student" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typy_prowadzacych">
+      <EntityTypeMapping TypeName="TestModel.typy_prowadzacych">
+        <MappingFragment StoreEntitySet="typy_prowadzacych">
+          <ScalarProperty Name="id_typ_prowadzacy" ColumnName="id_typ_prowadzacy" />
+          <ScalarProperty Name="typ_prowadzacy" ColumnName="typ_prowadzacy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typy_zajec">
+      <EntityTypeMapping TypeName="TestModel.typy_zajec">
+        <MappingFragment StoreEntitySet="typy_zajec">
+          <ScalarProperty Name="id_typ" ColumnName="id_typ" />
+          <ScalarProperty Name="nazwa_typ" ColumnName="nazwa_typ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="zajecia">
+      <EntityTypeMapping TypeName="TestModel.zajecia">
+        <MappingFragment StoreEntitySet="zajecia">
+          <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+          <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="id_typ" ColumnName="id_typ" />
+          <ScalarProperty Name="data_zaj" ColumnName="data_zaj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="oceny_etapow">
+      <EntityTypeMapping TypeName="TestModel.oceny_etapow">
+        <MappingFragment StoreEntitySet="oceny_etapow">
+          <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="wartosc" ColumnName="wartosc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="oceny_projektow">
+      <EntityTypeMapping TypeName="TestModel.oceny_projektow">
+        <MappingFragment StoreEntitySet="oceny_projektow">
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="wartosc_oceny_proj" ColumnName="wartosc_oceny_proj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="studenci_projekty" TypeName="TestModel.studenci_projekty" StoreEntitySet="studenci_projekty">
+      <EndProperty Name="projekty">
+        <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+      </EndProperty>
+      <EndProperty Name="studenci">
+        <ScalarProperty Name="id_student" ColumnName="id_student" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="studenci_zajecia" TypeName="TestModel.studenci_zajecia" StoreEntitySet="studenci_zajecia">
+      <EndProperty Name="studenci">
+        <ScalarProperty Name="id_student" ColumnName="id_student" />
+      </EndProperty>
+      <EndProperty Name="zajecia">
+        <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="zajecia_grupy" TypeName="TestModel.zajecia_grupy" StoreEntitySet="zajecia_grupy">
+      <EndProperty Name="grupy_dziekanskie">
+        <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+      </EndProperty>
+      <EndProperty Name="zajecia">
+        <ScalarProperty Name="id_zajec" ColumnName="id_zajec" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="administrators">
+      <EntityTypeMapping TypeName="TestModel.administrators">
+        <MappingFragment StoreEntitySet="administrators">
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="studentsbygroup" FunctionName="TestModel.Store.studentsbygroup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.studentsbygroup_Result">
+          <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+          <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+          <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="notesbyStage" FunctionName="TestModel.Store.notesbyStage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.notesbyStage_Result">
+          <ScalarProperty Name="id_etap" ColumnName="id_etap" />
+          <ScalarProperty Name="termin_etapu" ColumnName="termin_etapu" />
+          <ScalarProperty Name="nazwa_etapu" ColumnName="nazwa_etapu" />
+          <ScalarProperty Name="wartosc" ColumnName="wartosc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="notesbysubject" FunctionName="TestModel.Store.notesbysubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.notesbysubject_Result">
+          <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="wartosc_pceny_przedmiot" ColumnName="wartosc_pceny_przedmiot" />
+          <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="projectsbyclass" FunctionName="TestModel.Store.projectsbyclass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.projectsbyclass_Result">
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+          <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+          <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+          <ScalarProperty Name="wartosc_oceny_proj" ColumnName="wartosc_oceny_proj" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="projectsbyTeacher" FunctionName="TestModel.Store.projectsbyTeacher">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.projectsbyTeacher_Result">
+          <ScalarProperty Name="id_prow" ColumnName="id_prow" />
+          <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+          <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="projectsbyteacherandclass" FunctionName="TestModel.Store.projectsbyteacherandclass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.projectsbyteacherandclass_Result">
+          <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="studentsNotesBySubject" FunctionName="TestModel.Store.studentsNotesBySubject">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.studentsNotesBySubject_Result">
+          <ScalarProperty Name="id_student" ColumnName="id_student" />
+          <ScalarProperty Name="id_przed" ColumnName="id_przed" />
+          <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+          <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+          <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+          <ScalarProperty Name="wartosc_pceny_przedmiot" ColumnName="wartosc_pceny_przedmiot" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="studentsbygroupTwo" FunctionName="TestModel.Store.studentsbygroup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.studentsbygroup_Result">
+          <ScalarProperty Name="imie_student" ColumnName="imie_student" />
+          <ScalarProperty Name="nazwisko_student" ColumnName="nazwisko_student" />
+          <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+          <ScalarProperty Name="nr_album" ColumnName="nr_album" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="teacherbyid1" FunctionName="TestModel.Store.teacherbyid">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.teacherbyid1_Result">
+          <ScalarProperty Name="id_grupy" ColumnName="id_grupy" />
+          <ScalarProperty Name="nazwa_grupy" ColumnName="nazwa_grupy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="projectsbyTeacher1" FunctionName="TestModel.Store.projectsbyTeacher">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.projectsbyteacherandclass_Result">
+          <ScalarProperty Name="nazwa_proj" ColumnName="nazwa_proj" />
+          <ScalarProperty Name="id_proj" ColumnName="id_proj" />
+          <ScalarProperty Name="nazwa_przed" ColumnName="nazwa_przed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

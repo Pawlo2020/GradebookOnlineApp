@@ -1,0 +1,114 @@
+﻿@model GradebookOnlineApp.Models.SupervisorModels.SupervisorProfile
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Supervisor/SupLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="container" style="width: 100%;">
+        <div class="row-full">
+            <div class="card">
+                <div class="card-body">
+                    <div id="serviceName">
+                        <h4 style="font-family: 'Asap'; color: #5f27cd; margin: 0 auto;">Zajęcia</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="allProject">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="font-family: 'Comfortaa';">
+                        Wszystkie zajęcia
+                    </h5>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Typ zajęć</th>
+                                <th scope="col">Przedmiot</th>
+                                <th scope="col">Prowadzący</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Classes)
+                            {
+                                <tr id="@item.Classe.id_zajec">
+                                    <a href="@Url.Action("Classes","Supervisor",new { id=item.Classe.id_zajec})">
+                                        <td>@item.ClassType.nazwa_typ</td>
+                                        <td>@item.Subject.nazwa_przed</td>
+                                        <td>@item.Teacher.imie_prowadzacy @item.Teacher.nazwisko_prowadzacy</td>
+                                        <td>
+                                            @Html.ActionLink("Edytuj", "EditClass", new { id = item.Classe.id_zajec }, new { @class = "btn btn-secondary" })
+
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Usuń", "DeleteClass", new { id = item.Classe.id_zajec }, new { @class = "btn btn-warning" })
+                                        </td>
+                                    </a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <hr />
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #686de0; color: white;">Nowe zajęcia</button>
+
+                    <div class="modal fade bg-dark" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalCenterTitle" style="color: #5f27cd;">Dodaj zajęcia</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    @using (Html.BeginForm("CreateClass", "Supervisor",  FormMethod.Post))
+                                    {
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="PName">Data zajęć</label>
+                                                @Html.TextBoxFor(x => x.Classe.data_zaj, new { @class = "form-control form-control-sm", @id = "PName" })
+                                                @Html.ValidationMessageFor(x => x.Classe.data_zaj)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="DStart">Prowadzący</label>
+                                                @Html.DropDownListFor(x => x.Classe.id_prow, (IEnumerable<SelectListItem>)ViewBag.TeacherList, "Prowadzący", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                                                @Html.ValidationMessageFor(x => x.Classe.id_prow)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Przedmiot</label>
+                                                @Html.DropDownListFor(x => x.Classe.id_przed, (IEnumerable<SelectListItem>)ViewBag.SubjectList, "Przedmiot", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                                                @Html.ValidationMessageFor(x => x.Classe.id_przed)
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="card-subtitle mb-2 text-muted" for="loginText">Typ zajęć</label>
+                                                @Html.DropDownListFor(x => x.Classe.id_typ, (IEnumerable<SelectListItem>)ViewBag.ClassTypeList, "Typ zajęć", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                                                @Html.ValidationMessageFor(x => x.Classe.id_typ)
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                                            <button type="submit" formmethod="post" class="btn btn-primary" style="background-color: #686de0; color: white;">Dodaj zajęcia</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+

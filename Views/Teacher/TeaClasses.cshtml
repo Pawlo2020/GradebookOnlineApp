@@ -1,0 +1,76 @@
+﻿@model GradebookOnlineApp.Models.TeacherModels.TeacherProfile
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Teacher/TeaLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Comfortaa:300,400,500,600,700|Rajdhani:300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="container" style="width: 100%;">
+        <div class="row-full">
+            <div class="card">
+                <div class="card-body">
+                    <div id="serviceName">
+                        <h4 style="font-family: 'Asap'; color: #5f27cd; margin: 0 auto;">Zajęcia</h4>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="allProject">
+            <div class="card">
+                <div class="card-body">
+                    <h5 style="font-family: 'Comfortaa';">
+                        Wszystkie zajęcia prowadzącego
+                    </h5>
+
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Typ zajęć</th>
+                                <th scope="col">Przedmiot</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Classes)
+                            {
+                                <tr id="@item.Classe.id_zajec">
+                                    <a href="@Url.Action("Classes","Supervisor",new { id=item.Classe.id_zajec})">
+                                        <td>@item.ClassType.nazwa_typ</td>
+                                        <td>@item.Subject.nazwa_przed</td>
+                                        <td>@item.Teacher.imie_prowadzacy @item.Teacher.nazwisko_prowadzacy</td>
+                                        <td>
+                                            @Html.ActionLink("Lista studentów", "StudentsInClass", new { id = item.Classe.id_zajec }, new { @class = "btn btn-secondary" })
+
+                                        </td>
+                                    </a>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                    <hr />
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+</body>
+

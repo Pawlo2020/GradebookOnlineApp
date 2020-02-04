@@ -1,0 +1,116 @@
+﻿@model GradebookOnlineApp.Models.SupervisorModels.SupervisorProfile
+
+@{
+    ViewBag.Title = "EditClass";
+    Layout = "~/Views/Supervisor/SupLayout.cshtml";
+}
+
+<h2>Edycja zajęć</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@Model.Classes.Where(x => x.Classe.id_zajec == Model.Classe.id_zajec).FirstOrDefault().Subject.nazwa_przed-@Model.Classes.Where(x => x.Classe.id_zajec == Model.Classe.id_zajec).FirstOrDefault().ClassType.nazwa_typ</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Classe.id_zajec)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Classe.id_przed, "Przedmiot", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Classe.id_przed, (IEnumerable<SelectListItem>)ViewBag.SubjectList, "Przedmiot", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                @Html.ValidationMessageFor(model => model.Classe.id_przed, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Classe.id_prow, "Prowadzący", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Classe.id_prow, (IEnumerable<SelectListItem>)ViewBag.TeacherList, "Prowadzący", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                @Html.ValidationMessageFor(model => model.Classe.id_prow, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Classe.id_typ, "Typ zajęć", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Classe.id_typ, (IEnumerable<SelectListItem>)ViewBag.ClassTypeList, "Typ zajęć", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+                @Html.ValidationMessageFor(model => model.Classe.id_typ, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Classe.data_zaj, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Classe.data_zaj, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Classe.data_zaj, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<hr>
+@using (Html.BeginForm("EditStudentsInClasses", "Supervisor", FormMethod.Get))
+{
+    @Html.HiddenFor(model => model.Classe.id_zajec)
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nazwa grupy dziekańskiej</th>
+                <th>Wybór</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.GroupContext)
+            {
+
+                <tr id="@item.id_grupy">
+                    <a href="@Url.Action("Index", "Supervisor", new { id = item.id_grupy })">
+                        <td>@item.nazwa_grupy</td>
+                        <td>@Html.RadioButtonFor(x => x.Group.id_grupy, item.id_grupy)</td>
+                        <td>
+                            @Html.ActionLink("Usuń", "DeleteGroupFromClass", new { id = item.id_grupy }, new { @class = "btn btn-warning" })
+                        </td>
+                    </a>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lista studentów" class="btn btn-default" />
+        </div>
+    </div>
+}
+@using (Html.BeginForm("AddGroupToClass", "Supervisor"))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x=>x.Classe.id_zajec)
+        @Html.LabelFor(model => model.Classe.id_typ, "Grupa dziekańska", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.Group.id_grupy, (IEnumerable<SelectListItem>)ViewBag.GroupList, "Grupa dziekańska", new { @class = "form-control form-control-sm", @id = "DOBMText" })
+            @Html.ValidationMessageFor(model => model.Classe.id_typ, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Dodaj grupę" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
